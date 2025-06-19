@@ -16,6 +16,8 @@ interface ChatResponse {
   isComplete: boolean;
 }
 
+const API_BASE_URL = 'https://creditcard-recommender-server.onrender.com'; // <-- Set your backend URL here
+
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
@@ -40,7 +42,7 @@ const Chat: React.FC = () => {
   const startNewChat = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post('/api/chat/start');
+      const response = await axios.post(`${API_BASE_URL}/api/chat/start`);
       const { sessionId: newSessionId, message } = response.data;
       
       setSessionId(newSessionId);
@@ -82,7 +84,7 @@ const Chat: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post<ChatResponse>('/api/chat/message', {
+      const response = await axios.post<ChatResponse>(`${API_BASE_URL}/api/chat/message`, {
         sessionId,
         message: inputMessage
       });
@@ -185,7 +187,6 @@ const Chat: React.FC = () => {
               </motion.div>
             ))}
           </AnimatePresence>
-
           {/* Loading indicator */}
           {isLoading && (
             <motion.div
@@ -206,10 +207,8 @@ const Chat: React.FC = () => {
               </div>
             </motion.div>
           )}
-
           <div ref={messagesEndRef} />
         </div>
-
         {/* Input Area */}
         <div className="border-t border-gray-200 p-4">
           <div className="flex gap-3">
@@ -232,7 +231,6 @@ const Chat: React.FC = () => {
           </div>
         </div>
       </div>
-
       {/* Actions */}
       <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
         <button
@@ -241,7 +239,6 @@ const Chat: React.FC = () => {
         >
           Start New Chat
         </button>
-        
         {isComplete && (
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
@@ -254,7 +251,6 @@ const Chat: React.FC = () => {
           </motion.button>
         )}
       </div>
-
       {/* User Data Summary */}
       {Object.keys(userData).length > 0 && (
         <motion.div
@@ -295,4 +291,4 @@ const Chat: React.FC = () => {
   );
 };
 
-export default Chat; 
+export default Chat;

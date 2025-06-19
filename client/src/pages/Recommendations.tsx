@@ -32,6 +32,8 @@ interface CreditCard {
   estimatedRewards?: number;
 }
 
+const API_BASE_URL = 'https://creditcard-recommender-server.onrender.com'; // <-- Set your backend URL here
+
 const Recommendations: React.FC = () => {
   const [cards, setCards] = useState<CreditCard[]>([]);
   const [filteredCards, setFilteredCards] = useState<CreditCard[]>([]);
@@ -52,7 +54,7 @@ const Recommendations: React.FC = () => {
   const fetchCards = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/cards');
+      const response = await axios.get(`${API_BASE_URL}/api/cards`);
       const cardsData = response.data;
       
       // Add mock scores and reasons for demonstration
