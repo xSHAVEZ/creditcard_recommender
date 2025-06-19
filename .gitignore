@@ -92,9 +92,9 @@ ehthumbs.db
 Thumbs.db
 
 # Database files
-*.sqlite
-*.sqlite3
-*.db
+#*.sqlite
+#*.sqlite3
+#*.db
 
 # Build outputs
 build/
